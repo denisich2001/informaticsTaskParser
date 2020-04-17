@@ -6,15 +6,38 @@
     $ch = file_get_contents('https://www.yandex.com');
     #print_r($ch);
     
+    function login_request($url, $postdata = null, $cookiefile = ""){
+        $page = curl_init($url);
+        curl_setopt($page, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($page, CURLOPT_HEADER, true);
+        curl_setopt($page, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($page, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($page, CURLOPT_SSL_VERIFYHOST, false);
+        
+        
+        
+      
+        
+        $output = curl_exec($page);
+        if($output === FALSE){
+            echo "cURL error: " . $curl_error;
+            die();
+        }
+    }
     
-    
-    
+    $url = 'https://informatics.msk.ru/login/index.php';
+    $cookiefile = "C:\xampp\htdocs\informaticsTaskParser\cookie.txt";
     //data for POST request
-    $post = [
+    $postdata = [
         'username' => "denisich2001",
         'password' => "deniska",
         'testcookies' => "1"
     ];
     
-    echo $ch;
+    
+    
+    
+    $page = login_request($url, $postdata, $cookiefile);
+    
+    echo $page;
 ?>  
