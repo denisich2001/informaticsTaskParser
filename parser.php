@@ -45,10 +45,26 @@
     //print($login_page);
     
     //--------------------------------------------------------------------------
+    //Tasks processing
+    function task_request($task_number, $page_number, $cookiefile){
+        $task_page = curl_init('https://informatics.msk.ru/mod/statements/view3.php?chapterid='.$task_number.'&submit#'.$page_number);
+        curl_setopt($task_page, CURLOPT_COOKIEJAR, $cookiefile);
+        curl_setopt($task_page, CURLOPT_COOKIEFILE, $cookiefile);
+        curl_setopt($task_page, CURLOPT_HEADER, true);
+        curl_setopt($task_page, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($task_page, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($task_page, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($task_page, CURLOPT_RETURNTRANSFER, true);
+        $output = curl_exec($task_page);
+        return $output;
+    }
     
     
-    
-    
-    
+    $task_number = 1;    
+    //
+    $page_number = 2;
+    $task_page = task_request($task_number,$page_number,$cookiefile);
+    print($task_page);
+    //check on errors
     
 ?>  
